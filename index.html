@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Huahin Tools : Huahin Tools" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Huahin Tools</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/huahin/huahin-tools">View on GitHub</a>
+
+          <h1 id="project_title">Huahin Tools</h1>
+          <h2 id="project_tagline">Huahin Tools</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/huahin/huahin-tools/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/huahin/huahin-tools/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>Huahin Tools</h1>
+
+<p>Huahin Tools is set of tools ont the Hadoop MapReduce. <br>
+Huahin Tools is distributed under Apache License 2.0. <br></p>
+
+<h2>Download</h2>
+
+<p><a href="https://github.com/downloads/huahin/huahin-tools/huashin-tools-0.1.0.tar.gz">Huahin Tools 0.1.1</a></p>
+
+<h2>Requirements</h2>
+
+<ul>
+<li>Java 6+</li>
+</ul><h2>Install Huahin Tools</h2>
+
+<p>~ $ tar xzf huahin-tools-x.x.x.tar.gz</p>
+
+<h2>Amzon Elastic MapReduce</h2>
+
+<p>jar fila path <br><br>
+    s3://huahin/tools/huahin-tools-x.x.x.jar <br></p>
+
+<h2>Run Huahin Tools</h2>
+
+<p>To run Huahin Tools use bin/huahin-tools script. For example: <br><br>
+  $ bin/huahin-tools -j formatting -i ../input/ -o output <br></p>
+
+<h2>Common Arguments</h2>
+
+<p>-l local mode. Map is running MultithreadedMapper. <br>
+  -t thread number option. MultithreadedMapper number of thread. <br>
+  -s split size. <br>
+  -j job name. <br></p>
+
+<h2>Tools</h2>
+
+<h3>Formatting</h3>
+
+<pre><code>Formatting is formed after the split with a regular expression to the specified input file. The default is the format of the default Apache log, so if you do not specify a regular expression.
+</code></pre>
+
+<p><br>
+    required arguments <br>
+    -i data input path. <br>
+    -o data output path. <br><br>
+    option arguments <br>
+    -p separator pattern. Specify a regular expression. Default is default Apache log format. <br>
+    -e specific outputs number. Specify a regular expression output group number. <br>
+    -n group number of specify a regular expression. <br><br>
+  For example: <br><br>
+    $ ./bin/huahin-tools -l -t 4 -s 2147483648 \ <br>
+       -j formatting \ <br>
+       -i /tmp/input/ \ <br>
+       -o /tmp/output/ \ <br>
+       -e 0,3,5 \ <br>
+       -n 11 <br></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Huahin Tools maintained by <a href="https://github.com/huahin">huahin</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-32923864-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+
+  </body>
+</html>
