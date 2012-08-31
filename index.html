@@ -42,28 +42,35 @@ Huahin Tools is distributed under Apache License 2.0. <br></p>
 
 <h2>Requirements</h2>
 
-<ul>
-<li>Java 6+</li>
-</ul><h2>Install Huahin Tools</h2>
+<pre><code>  * Java 6+
+</code></pre>
 
-<p>~ $ tar xzf huahin-tools-x.x.x.tar.gz</p>
+<h2>Install Huahin Tools</h2>
+
+<pre><code>  ~ $ tar xzf huahin-tools-x.x.x.tar.gz
+</code></pre>
 
 <h2>Amzon Elastic MapReduce</h2>
 
-<p>jar fila path <br><br>
-    s3://huahin/tools/huahin-tools-x.x.x.jar <br></p>
+<p>jar fila path</p>
+
+<pre><code>    s3://huahin/tools/huahin-tools-x.x.x.jar &lt;br/&gt;
+</code></pre>
 
 <h2>Run Huahin Tools</h2>
 
-<p>To run Huahin Tools use bin/huahin-tools script. For example: <br><br>
-  $ bin/huahin-tools -j formatting -i ../input/ -o output <br></p>
+<p>To run Huahin Tools use bin/huahin-tools script. For example: <br></p>
+
+<pre><code>  $ bin/huahin-tools -j formatting -i ../input/ -o output &lt;br/&gt;
+</code></pre>
 
 <h2>Common Arguments</h2>
 
-<p>-l local mode. Map is running MultithreadedMapper. <br>
-  -t thread number option. MultithreadedMapper number of thread. <br>
-  -s split size. <br>
-  -j job name. <br></p>
+<pre><code>  -l local mode. Map is running MultithreadedMapper. &lt;br/&gt;
+  -t thread number option. MultithreadedMapper number of thread. &lt;br/&gt;
+  -s split size. &lt;br/&gt;
+  -j job name. &lt;br/&gt;
+</code></pre>
 
 <h2>Tools</h2>
 
@@ -72,21 +79,27 @@ Huahin Tools is distributed under Apache License 2.0. <br></p>
 <pre><code>Formatting is formed after the split with a regular expression to the specified input file. The default is the format of the default Apache log, so if you do not specify a regular expression.
 </code></pre>
 
+<p><br></p>
+
+<pre><code>    required arguments &lt;br/&gt;
+    -i data input path. &lt;br/&gt;
+    -o data output path. &lt;br/&gt;
+</code></pre>
+
 <p><br>
-    required arguments <br>
-    -i data input path. <br>
-    -o data output path. <br><br>
     option arguments <br>
     -p separator pattern. Specify a regular expression. Default is default Apache log format. <br>
     -e specific outputs number. Specify a regular expression output group number. <br>
     -n group number of specify a regular expression. <br><br>
-  For example: <br><br>
-    $ ./bin/huahin-tools -l -t 4 -s 2147483648 \ <br>
-       -j formatting \ <br>
-       -i /tmp/input/ \ <br>
-       -o /tmp/output/ \ <br>
-       -e 0,3,5 \ <br>
-       -n 11 <br></p>
+  For example: <br><br></p>
+
+<pre><code>    $ ./bin/huahin-tools -l -t 4 -s 2147483648 \ &lt;br/&gt;
+       -j formatting \ &lt;br/&gt;
+       -i /tmp/input/ \ &lt;br/&gt;
+       -o /tmp/output/ \ &lt;br/&gt;
+       -e 0,3,5 \ &lt;br/&gt;
+       -n 11 &lt;br/&gt;
+</code></pre>
       </section>
     </div>
 
