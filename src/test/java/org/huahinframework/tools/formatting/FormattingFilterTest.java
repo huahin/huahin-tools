@@ -17,11 +17,12 @@
  */
 package org.huahinframework.tools.formatting;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
-import org.huahinframework.core.DataFormatException;
 import org.huahinframework.core.Filter;
 import org.huahinframework.core.io.Record;
 import org.huahinframework.tools.formatting.Formatting;
@@ -34,7 +35,7 @@ import org.junit.Test;
  */
 public class FormattingFilterTest extends FilterDriver {
     @Test
-    public void testAll() throws DataFormatException {
+    public void testAll() throws IOException, URISyntaxException {
         final String input = "1.1.1.1 - - [30/Jul/2012:17:22:34 +0900] \"GET / HTTP/1.1\" 200 317 \"-\" \"Mozilla/5.0\"";
 
         List<Record> output = new ArrayList<Record>();
@@ -57,7 +58,7 @@ public class FormattingFilterTest extends FilterDriver {
     }
 
     @Test
-    public void testNumer() throws DataFormatException {
+    public void testNumer() throws IOException, URISyntaxException {
         final String input = "1.1.1.1 - - [30/Jul/2012:17:22:34 +0900] \"GET / HTTP/1.1\" 200 317 \"-\" \"Mozilla/5.0\"";
 
         List<Record> output = new ArrayList<Record>();
@@ -74,7 +75,7 @@ public class FormattingFilterTest extends FilterDriver {
     }
 
     @Test
-    public void testPatternNumer() throws DataFormatException {
+    public void testPatternNumer() throws IOException, URISyntaxException {
         final String input = "1.1.1.1 - - [30/Jul/2012:17:22:34 +0900] \"GET / HTTP/1.1\" 200 317 \"-\" \"Mozilla/5.0\"";
 
         List<Record> output = new ArrayList<Record>();

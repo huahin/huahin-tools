@@ -34,16 +34,20 @@ public class Tools {
      */
     public static void main(String[] args)
             throws ParseException {
+        Runner runner = new Runner();
+        runner.addJob(APACHE_FORMATTING, Formatting.class);
+
         if (args.length < 3) {
             System.err.println("[jobName] args...");
+            System.err.println("jobName");
+            for (String s : runner.getJobList()) {
+                System.err.println("  " + s);
+            }
             System.exit(-1);
         }
 
         OptionUtil opt = new OptionUtil(args);
         String jobName = opt.getJobName();
-
-        Runner runner = new Runner();
-        runner.addJob(APACHE_FORMATTING, Formatting.class);
 
         int status = runner.run(jobName, args);
         System.exit(status);
