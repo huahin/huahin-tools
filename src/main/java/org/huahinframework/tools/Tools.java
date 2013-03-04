@@ -20,6 +20,7 @@ package org.huahinframework.tools;
 import org.apache.commons.cli.ParseException;
 import org.huahinframework.core.Runner;
 import org.huahinframework.core.util.OptionUtil;
+import org.huahinframework.tools.dccext.Dccext;
 import org.huahinframework.tools.dwc.Dwc;
 import org.huahinframework.tools.formatting.Formatting;
 
@@ -29,6 +30,7 @@ import org.huahinframework.tools.formatting.Formatting;
 public class Tools {
     public static final String APACHE_FORMATTING = "formatting";
     public static final String DWC = "dwc";
+    public static final String DCCEXT = "dccext";
 
     /**
      * @param args
@@ -39,6 +41,7 @@ public class Tools {
         Runner runner = new Runner();
         runner.addJob(APACHE_FORMATTING, Formatting.class);
         runner.addJob(DWC, Dwc.class);
+        runner.addJob(DCCEXT, Dccext.class);
 
         if (args.length < 3) {
             System.err.println("[jobName] args...");
