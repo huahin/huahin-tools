@@ -17,16 +17,16 @@
  */
 package org.huahinframework.tools.util;
 
-import org.apache.commons.cli.BasicParser;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.PosixParser;
 
 /**
  * Tools option utils
  */
-public class ToolsOptionUtil {
+public abstract class ToolsOptionUtil {
     /**
      * data input path
      */
@@ -37,22 +37,7 @@ public class ToolsOptionUtil {
      */
     public static final String OUTPUT_PATH = "o";
 
-    /**
-     * separator pattern
-     */
-    public static final String SEPARATOR_PATTERN = "p";
-
-    /**
-     * specific outputs number
-     */
-    public static final String SPECIFIC_OUTPUTS_NUMBER = "e";
-
-    /**
-     * group number of separator pattern
-     */
-    public static final String PATTERN_GROUP_NUMBER = "n";
-
-    private CommandLine cli;
+    protected CommandLine cli;
 
     public ToolsOptionUtil() {
     }
@@ -75,13 +60,14 @@ public class ToolsOptionUtil {
         Options options = new Options();
         options.addOption(INPUT_PATH, true, "data input path");
         options.addOption(OUTPUT_PATH, true, "data output path");
-        options.addOption(SEPARATOR_PATTERN, true, "separator pattern");
-        options.addOption(SPECIFIC_OUTPUTS_NUMBER, true, "specific outputs number(comma separator)");
-        options.addOption(PATTERN_GROUP_NUMBER, true, "group number of separator pattern");
 
-        CommandLineParser parser = new BasicParser();
+        setMoreArgs(options);
+
+        CommandLineParser parser = new PosixParser();
         cli = parser.parse(options, args, true);
     }
+
+    protected abstract void setMoreArgs(Options options);
 
     /**
      * @return Returns input path
@@ -95,48 +81,6 @@ public class ToolsOptionUtil {
      */
     public String getOutputPath() {
         return cli.getOptionValue(OUTPUT_PATH);
-    }
-
-    /**
-     * @return if true, separator pattern
-     */
-    public boolean isSeparator() {
-        return cli.hasOption(SEPARATOR_PATTERN);
-    }
-
-    /**
-     * @return separator pattern
-     */
-    public String getSeparator() {
-        return cli.getOptionValue(SEPARATOR_PATTERN);
-    }
-
-    /**
-     * @return if true, specific outputs number
-     */
-    public boolean isOutpusNumber() {
-        return cli.hasOption(SPECIFIC_OUTPUTS_NUMBER);
-    }
-
-    /**
-     * @return specific outputs number
-     */
-    public String getOutputsNumber() {
-        return cli.getOptionValue(SPECIFIC_OUTPUTS_NUMBER);
-    }
-
-    /**
-     * @return if true, group number of separator pattern
-     */
-    public boolean isGroupNumber() {
-        return cli.hasOption(PATTERN_GROUP_NUMBER);
-    }
-
-    /**
-     * @return group number of separator pattern
-     */
-    public String getGroupNumber() {
-        return cli.getOptionValue(PATTERN_GROUP_NUMBER);
     }
 
     /**

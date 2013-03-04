@@ -15,31 +15,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.huahinframework.tools.formatting;
+package org.huahinframework.tools.dwc.output.summarizer;
 
 import java.io.IOException;
 
 import org.huahinframework.core.io.Record;
 import org.huahinframework.core.writer.Writer;
-import org.huahinframework.tools.util.Outputter;
 
 /**
  *
  */
-public class AllOutputter implements Outputter {
-    @Override
-    public void output(Writer writer, Record record)
-            throws IOException, InterruptedException {
-        Record emitRecord = new Record();
-        for (int i = 0; i < record.sizeValue(); i++) {
-            String s = null;
-            try {
-                s = record.getValueString(String.valueOf(i));
-            } catch (ClassCastException e) {
-            }
-            emitRecord.addGrouping(String.valueOf(i), s);
-        }
-        emitRecord.setValueNothing(true);
-        writer.write(emitRecord);
-    }
+public interface Outputter {
+    public void summarize(Record record);
+    public void output(Writer writer) throws IOException, InterruptedException;
 }

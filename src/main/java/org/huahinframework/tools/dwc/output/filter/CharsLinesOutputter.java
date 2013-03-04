@@ -15,16 +15,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.huahinframework.tools.formatting;
+package org.huahinframework.tools.dwc.output.filter;
 
 import java.io.IOException;
 
 import org.huahinframework.core.io.Record;
 import org.huahinframework.core.writer.Writer;
+import org.huahinframework.tools.util.Outputter;
 
 /**
  *
  */
-public interface Outputter {
-    public void output(Writer writer, Record record) throws IOException, InterruptedException;
+public class CharsLinesOutputter implements Outputter {
+    /* (non-Javadoc)
+     * @see org.huahinframework.tools.util.Outputter#output(org.huahinframework.core.writer.Writer, org.huahinframework.core.io.Record)
+     */
+    @Override
+    public void output(Writer writer, Record record) throws IOException,
+            InterruptedException {
+        Record emitRecord = new Record();
+        emitRecord.addGrouping("FILE_NAME", record.getGroupingString("FILE_NAME"));
+        emitRecord.addValue("FILE_LENGTH", record.getGroupingLong("FILE_LENGTH"));
+        writer.write(emitRecord);
+    }
 }

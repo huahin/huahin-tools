@@ -15,31 +15,46 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.huahinframework.tools.formatting;
+package org.huahinframework.tools.dwc.output.summarizer;
 
 import java.io.IOException;
 
 import org.huahinframework.core.io.Record;
 import org.huahinframework.core.writer.Writer;
-import org.huahinframework.tools.util.Outputter;
+import org.huahinframework.tools.dwc.Dwc;
 
 /**
  *
  */
 public class AllOutputter implements Outputter {
+    private String fileName;
+    private long chars;
+    private long words;
+    private long lines;
+
+    /* (non-Javadoc)
+     * @see org.huahinframework.tools.dwc.output.summarizer.Outputter#summarize(org.huahinframework.core.io.Record)
+     */
     @Override
-    public void output(Writer writer, Record record)
+    public void summarize(Record record) {
+        fileName = record.getGroupingString("FILE_NAME");
+        chars = record.getGroupingLong("FILE_LENGTH");
+        words += record.getValueInteger(Dwc.WORDS);
+        lines++;
+    }
+
+    /* (non-Javadoc)
+     * @see org.huahinframework.tools.dwc.output.summarizer.Outputter#output(org.huahinframework.core.writer.Writer)
+     */
+    @Override
+    public void output(Writer writer)
             throws IOException, InterruptedException {
-        Record emitRecord = new Record();
-        for (int i = 0; i < record.sizeValue(); i++) {
-            String s = null;
-            try {
-                s = record.getValueString(String.valueOf(i));
-            } catch (ClassCastException e) {
-            }
-            emitRecord.addGrouping(String.valueOf(i), s);
-        }
-        emitRecord.setValueNothing(true);
-        writer.write(emitRecord);
+        Record r = new Record();
+        r.addGrouping(Dwc.LINES, lines);
+        r.addGrouping(Dwc.WORDS, words);
+        r.addGrouping(Dwc.CHARS, chars);
+        r.addGrouping(Dwc.CHARS, fileName);
+        r.setValueNothing(true);
+        writer.write(r);
     }
 }

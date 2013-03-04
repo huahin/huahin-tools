@@ -15,31 +15,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.huahinframework.tools.formatting;
+package org.huahinframework.tools.dwc.output.filter;
 
 import java.io.IOException;
 
 import org.huahinframework.core.io.Record;
+import org.huahinframework.core.util.StringUtil;
 import org.huahinframework.core.writer.Writer;
+import org.huahinframework.tools.dwc.Dwc;
 import org.huahinframework.tools.util.Outputter;
 
 /**
  *
  */
-public class AllOutputter implements Outputter {
+public class WordsOutputter implements Outputter {
+    /* (non-Javadoc)
+     * @see org.huahinframework.tools.util.Outputter#output(org.huahinframework.core.writer.Writer, org.huahinframework.core.io.Record)
+     */
     @Override
     public void output(Writer writer, Record record)
             throws IOException, InterruptedException {
         Record emitRecord = new Record();
-        for (int i = 0; i < record.sizeValue(); i++) {
-            String s = null;
-            try {
-                s = record.getValueString(String.valueOf(i));
-            } catch (ClassCastException e) {
-            }
-            emitRecord.addGrouping(String.valueOf(i), s);
-        }
-        emitRecord.setValueNothing(true);
+        emitRecord.addGrouping("FILE_NAME", record.getGroupingString("FILE_NAME"));
+        emitRecord.addValue(Dwc.WORDS, StringUtil.split(record.getValueString("0"), " ", true).length);
         writer.write(emitRecord);
     }
 }

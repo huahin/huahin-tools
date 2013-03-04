@@ -21,6 +21,7 @@ import java.io.IOException;
 
 import org.huahinframework.core.io.Record;
 import org.huahinframework.core.writer.Writer;
+import org.huahinframework.tools.util.Outputter;
 
 /**
  *
@@ -38,7 +39,12 @@ public class NumberOutputter implements Outputter {
         try {
             Record emitRecord = new Record();
             for (int i : number) {
-                emitRecord.addGrouping(String.valueOf(i), record.getValueString(String.valueOf(i)));
+                String s = null;
+                try {
+                    s = record.getValueString(String.valueOf(i));
+                } catch (ClassCastException e) {
+                }
+                emitRecord.addGrouping(String.valueOf(i), s);
             }
             emitRecord.setValueNothing(true);
             writer.write(emitRecord);

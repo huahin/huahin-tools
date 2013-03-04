@@ -15,9 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.huahinframework.tools.formatting;
-
-import java.util.regex.Pattern;
+package org.huahinframework.tools.dwc;
 
 import org.apache.commons.cli.ParseException;
 import org.apache.hadoop.mapreduce.lib.map.MultithreadedMapper;
@@ -30,49 +28,47 @@ import org.huahinframework.tools.util.ToolsTool;
 /**
  *
  */
-public class Formatting extends ToolsTool {
-    public static final Pattern DEFAULT_APACHE_PATTERN =
-            Pattern.compile("^(.*?) (.*?) (.*?) \\[(.*?)\\] \"(\\S+?)(?: +(.*?) +(\\S*?))?\" (.*?) (.*?) \"(.*?)\" \"(.*?)\"");
+public class Dwc extends ToolsTool {
+    public static final String CHARS = "CHARS";
+    public static final String WORDS = "WORDS";
+    public static final String LINES = "LINES";
 
-    public static final String OUTPUTS = "OUTPUTS";
-    public static final String GROUP_NUMBER = "GROUP_NUMBER";
-
-    private FormattingToolsOptionUtil tot;
+    private DwcToolsOptionUtil tot;
 
     @Override
     protected void setup() throws Exception {
-        Pattern pattern = null;
-        if (tot.isSeparator()) {
-            pattern = Pattern.compile(tot.getSeparator());
-        } else {
-            pattern = DEFAULT_APACHE_PATTERN;
-        }
-
-        SimpleJob job = addJob(pattern);
+        SimpleJob job = addJob("\n");
         if (!opt.isLocalMode()) {
-            job.setFilter(FormattingFilter.class);
+            job.setFilter(DwcFilter.class);
+            job.setSummarizer(DwcSummarizer.class);
         } else {
             job.setMapperClass(MultithreadedMapper.class);
-            MultithreadedMapper.setMapperClass(job, FormattingFilter.class);
+            MultithreadedMapper.setMapperClass(job, DwcFilter.class);
             MultithreadedMapper.setNumberOfThreads(job, opt.getThreadNumber());
+
+            job.setSummarizer(DwcSummarizer.class);
 
             SimpleTextInputFormat.setMinInputSplitSize(job, opt.getSplitSize());
             SimpleTextInputFormat.setMaxInputSplitSize(job, opt.getSplitSize());
         }
 
-        if (tot.isOutpusNumber()) {
-            job.setParameter(OUTPUTS, tot.getOutputsNumber());
+        if (tot.isChars()) {
+            job.setParameter(CHARS, true);
         }
 
-        if (tot.isGroupNumber()) {
-            job.setParameter(GROUP_NUMBER, tot.getGroupNumber());
+        if (tot.isWords()) {
+            job.setParameter(WORDS, true);
+        }
+
+        if (tot.isLines()) {
+            job.setParameter(LINES, true);
         }
     }
 
     @Override
     protected ToolsOptionUtil setToolsOptionUtil(OptionUtil opt)
             throws ParseException {
-        tot = new FormattingToolsOptionUtil(opt.getArgs());
+        tot = new DwcToolsOptionUtil(opt.getArgs());
         return tot;
     }
 }

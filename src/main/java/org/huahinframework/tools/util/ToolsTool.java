@@ -17,6 +17,7 @@
  */
 package org.huahinframework.tools.util;
 
+import org.apache.commons.cli.ParseException;
 import org.huahinframework.core.SimpleJobTool;
 import org.huahinframework.core.util.OptionUtil;
 
@@ -39,7 +40,10 @@ public abstract class ToolsTool extends SimpleJobTool {
     @Override
     public int run(String[] args) throws Exception {
         opt = new OptionUtil(args);
-        toolOptUtil = new ToolsOptionUtil(opt.getArgs());
+        toolOptUtil = setToolsOptionUtil(opt);
         return super.run(args);
     }
+
+    protected abstract ToolsOptionUtil setToolsOptionUtil(OptionUtil opt)
+            throws ParseException;
 }
