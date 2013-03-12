@@ -21,6 +21,7 @@ import org.apache.commons.cli.ParseException;
 import org.huahinframework.core.Runner;
 import org.huahinframework.core.util.OptionUtil;
 import org.huahinframework.tools.dccext.Dccext;
+import org.huahinframework.tools.dcut.Dcut;
 import org.huahinframework.tools.durlsw.Durlsw;
 import org.huahinframework.tools.dwc.Dwc;
 import org.huahinframework.tools.formatting.Formatting;
@@ -33,6 +34,7 @@ public class Tools {
     public static final String DWC = "dwc";
     public static final String DCCEXT = "dccext";
     public static final String DURLSW = "durlsw";
+    public static final String DCUT = "dcut";
 
     /**
      * @param args
@@ -45,6 +47,7 @@ public class Tools {
         runner.addJob(DWC, Dwc.class);
         runner.addJob(DCCEXT, Dccext.class);
         runner.addJob(DURLSW, Durlsw.class);
+        runner.addJob(DCUT, Dcut.class);
 
         if (args.length < 3) {
             System.err.println("[jobName] args...");

@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package durlsw;
+package org.huahinframework.tools.durlsw;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
