@@ -21,6 +21,6 @@ BASEDIR=`cd ${BASEDIR}/..;pwd`
 
 HUAHIN_TOOLS_JAR="$BASEDIR/huahin-tools.jar"
 
-$BASEDIR/bin//hadoop jar $HUAHIN_TOOLS_JAR $@
+$BASEDIR/bin/hadoop jar $HUAHIN_TOOLS_JAR $@
 
 exit 0
