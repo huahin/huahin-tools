@@ -1,2 +1,9 @@
 0.1.0
+  * add: New Job dwc. dwc is the wc command of Linux.
+  * add: New Job dcut. dcut is th cut command of Linux.
+  * add: New Job dccext. dccext extracts the row number of the specified column.
+  * add: New Job durldec. durldec is to URL decode the specified columns.
+  * add: New Job durlsw. durldec extracts the URL keyword from the specified column.
+
+0.1.0
   * This is the first version.

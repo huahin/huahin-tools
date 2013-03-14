@@ -62,3 +62,109 @@ Tools
        -o /tmp/output/ \
        -e 0,3,5 \
        -n 11
+
+* dwc
+    dwc is the wc command of Linux.
+
+  arguments
+    required
+      -i data input path.
+      -o data output path.
+
+    option
+      -c charctors.
+      -w words.
+      -l lines.
+
+  For example:
+
+    $ ./bin/huahin-tools -l -t 4 -s 2147483648 \
+       -j dwc \
+       -i /tmp/input/ \
+       -o /tmp/output/ \
+       -l
+
+* dcut
+    dcut is th cut command of Linux.
+
+  arguments
+    required
+      -i data input path.
+      -o data output path.
+
+    option
+      -f specified column. 1 or 1,2 or 1-4.
+      -d delimiter. Default TAB.
+
+  For example:
+
+    $ ./bin/huahin-tools -l -t 4 -s 2147483648 \
+       -j dcut \
+       -i /tmp/input/ \
+       -o /tmp/output/ \
+       -f 3,4
+
+* dccext
+    dccext extracts the row number of the specified column.
+
+  arguments
+    required
+      -i data input path.
+      -o data output path.
+
+    option
+      -n Number of the specified column.
+      -v reverse of -n.
+      -d delimiter. Default TAB.
+
+  For example:
+
+    $ ./bin/huahin-tools -l -t 4 -s 2147483648 \
+       -j dccext \
+       -i /tmp/input/ \
+       -o /tmp/output/ \
+       -n 12 \
+       -v
+
+* durldec
+    durldec is to URL decode the specified columns.
+
+  arguments
+    required
+      -i data input path.
+      -o data output path.
+
+    option
+      -f decode the specified columns. 1 or 1,2 or 1-4.
+      -d delimiter. Default TAB.
+
+  For example:
+
+    $ ./bin/huahin-tools -l -t 4 -s 2147483648 \
+       -j durldec \
+       -i /tmp/input/ \
+       -o /tmp/output/ \
+       -f 3,5
+
+* durldec
+    durldec extracts the URL keyword from the specified column.
+
+  arguments
+    required
+      -i data input path.
+      -o data output path.
+
+    option
+      -f decode the specified columns. 1 or 1,2 or 1-4.
+      -m master file path. huahin-tools comes with master/SearchEngine.tsv.
+         format is TSV(search engine host/search engine path/search engine query name).
+      -d delimiter. Default TAB.
+
+  For example:
+
+    $ ./bin/huahin-tools -l -t 4 -s 2147483648 \
+       -j durldec \
+       -i /tmp/input/ \
+       -o /tmp/output/ \
+       -f 3,5 \
+       -m master/SearchEngine.tsv
