@@ -18,9 +18,7 @@
 package org.huahinframework.tools.wc;
 
 import org.apache.commons.cli.ParseException;
-import org.apache.hadoop.mapreduce.lib.map.MultithreadedMapper;
 import org.huahinframework.core.SimpleJob;
-import org.huahinframework.core.lib.input.SimpleTextInputFormat;
 import org.huahinframework.core.util.OptionUtil;
 import org.huahinframework.tools.util.ToolsOptionUtil;
 import org.huahinframework.tools.util.ToolsTool;
@@ -34,19 +32,8 @@ public class Wc extends ToolsTool {
     @Override
     protected void setup() throws Exception {
         SimpleJob job = addJob("\n");
-        if (!opt.isLocalMode()) {
-            job.setFilter(WcFilter.class);
-            job.setSummarizer(WcSummarizer.class);
-        } else {
-            job.setMapperClass(MultithreadedMapper.class);
-            MultithreadedMapper.setMapperClass(job, WcFilter.class);
-            MultithreadedMapper.setNumberOfThreads(job, opt.getThreadNumber());
-
-            job.setSummarizer(WcSummarizer.class);
-
-            SimpleTextInputFormat.setMinInputSplitSize(job, opt.getSplitSize());
-            SimpleTextInputFormat.setMaxInputSplitSize(job, opt.getSplitSize());
-        }
+        setFilter(job, WcFilter.class);
+        job.setFilter(WcFilter.class);
     }
 
     @Override

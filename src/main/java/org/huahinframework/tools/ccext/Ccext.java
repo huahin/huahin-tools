@@ -18,9 +18,7 @@
 package org.huahinframework.tools.ccext;
 
 import org.apache.commons.cli.ParseException;
-import org.apache.hadoop.mapreduce.lib.map.MultithreadedMapper;
 import org.huahinframework.core.SimpleJob;
-import org.huahinframework.core.lib.input.SimpleTextInputFormat;
 import org.huahinframework.core.util.OptionUtil;
 import org.huahinframework.tools.util.ToolsOptionUtil;
 import org.huahinframework.tools.util.ToolsTool;
@@ -46,16 +44,7 @@ public class Ccext extends ToolsTool {
         }
 
         SimpleJob job = addJob(separator);
-        if (!opt.isLocalMode()) {
-            job.setFilter(CcextFilter.class);
-        } else {
-            job.setMapperClass(MultithreadedMapper.class);
-            MultithreadedMapper.setMapperClass(job, CcextFilter.class);
-            MultithreadedMapper.setNumberOfThreads(job, opt.getThreadNumber());
-
-            SimpleTextInputFormat.setMinInputSplitSize(job, opt.getSplitSize());
-            SimpleTextInputFormat.setMaxInputSplitSize(job, opt.getSplitSize());
-        }
+        setFilter(job, CcextFilter.class);
 
         if (!tot.isNumber()) {
             throw new RuntimeException("-n(number) not found");

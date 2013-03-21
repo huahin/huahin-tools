@@ -1,4 +1,4 @@
-0.1.0
+0.1.1
   * add: New Job wc. wc is the wc command of Linux.
   * add: New Job cut. cut is th cut command of Linux.
   * add: New Job ccext. ccext extracts the row number of the specified column.

@@ -20,9 +20,7 @@ package org.huahinframework.tools.formatting;
 import java.util.regex.Pattern;
 
 import org.apache.commons.cli.ParseException;
-import org.apache.hadoop.mapreduce.lib.map.MultithreadedMapper;
 import org.huahinframework.core.SimpleJob;
-import org.huahinframework.core.lib.input.SimpleTextInputFormat;
 import org.huahinframework.core.util.OptionUtil;
 import org.huahinframework.tools.util.ToolsOptionUtil;
 import org.huahinframework.tools.util.ToolsTool;
@@ -49,16 +47,7 @@ public class Formatting extends ToolsTool {
         }
 
         SimpleJob job = addJob(pattern);
-        if (!opt.isLocalMode()) {
-            job.setFilter(FormattingFilter.class);
-        } else {
-            job.setMapperClass(MultithreadedMapper.class);
-            MultithreadedMapper.setMapperClass(job, FormattingFilter.class);
-            MultithreadedMapper.setNumberOfThreads(job, opt.getThreadNumber());
-
-            SimpleTextInputFormat.setMinInputSplitSize(job, opt.getSplitSize());
-            SimpleTextInputFormat.setMaxInputSplitSize(job, opt.getSplitSize());
-        }
+        setFilter(job, FormattingFilter.class);
 
         if (tot.isOutpusNumber()) {
             job.setParameter(OUTPUTS, tot.getOutputsNumber());

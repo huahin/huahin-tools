@@ -18,9 +18,7 @@
 package org.huahinframework.tools.urldec;
 
 import org.apache.commons.cli.ParseException;
-import org.apache.hadoop.mapreduce.lib.map.MultithreadedMapper;
 import org.huahinframework.core.SimpleJob;
-import org.huahinframework.core.lib.input.SimpleTextInputFormat;
 import org.huahinframework.core.util.OptionUtil;
 import org.huahinframework.tools.util.OptionsStringUtils;
 import org.huahinframework.tools.util.ToolsOptionUtil;
@@ -49,16 +47,7 @@ public class Urldec extends ToolsTool {
         }
 
         SimpleJob job = addJob(separator);
-        if (!opt.isLocalMode()) {
-            job.setFilter(UrldecFilter.class);
-        } else {
-            job.setMapperClass(MultithreadedMapper.class);
-            MultithreadedMapper.setMapperClass(job, UrldecFilter.class);
-            MultithreadedMapper.setNumberOfThreads(job, opt.getThreadNumber());
-
-            SimpleTextInputFormat.setMinInputSplitSize(job, opt.getSplitSize());
-            SimpleTextInputFormat.setMaxInputSplitSize(job, opt.getSplitSize());
-        }
+        setFilter(job, UrldecFilter.class);
 
         if (!tot.isFields()) {
             throw new RuntimeException("-f(fields) not found");

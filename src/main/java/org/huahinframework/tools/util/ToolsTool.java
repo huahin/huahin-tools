@@ -18,7 +18,11 @@
 package org.huahinframework.tools.util;
 
 import org.apache.commons.cli.ParseException;
+import org.apache.hadoop.mapreduce.lib.map.MultithreadedMapper;
+import org.huahinframework.core.Filter;
+import org.huahinframework.core.SimpleJob;
 import org.huahinframework.core.SimpleJobTool;
+import org.huahinframework.core.lib.input.SimpleTextInputFormat;
 import org.huahinframework.core.util.OptionUtil;
 
 /**
@@ -42,6 +46,20 @@ public abstract class ToolsTool extends SimpleJobTool {
         opt = new OptionUtil(args);
         toolOptUtil = setToolsOptionUtil(opt);
         return super.run(args);
+    }
+
+    protected void setFilter(SimpleJob job,
+                             Class<? extends Filter> clazz) {
+        if (!opt.isLocalMode()) {
+            job.setFilter(clazz);
+        } else {
+            job.setMapperClass(MultithreadedMapper.class);
+            MultithreadedMapper.setMapperClass(job, clazz);
+            MultithreadedMapper.setNumberOfThreads(job, opt.getThreadNumber());
+
+            SimpleTextInputFormat.setMinInputSplitSize(job, opt.getSplitSize());
+            SimpleTextInputFormat.setMaxInputSplitSize(job, opt.getSplitSize());
+        }
     }
 
     protected abstract ToolsOptionUtil setToolsOptionUtil(OptionUtil opt)
