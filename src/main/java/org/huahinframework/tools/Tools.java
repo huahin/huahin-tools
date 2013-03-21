@@ -20,23 +20,23 @@ package org.huahinframework.tools;
 import org.apache.commons.cli.ParseException;
 import org.huahinframework.core.Runner;
 import org.huahinframework.core.util.OptionUtil;
-import org.huahinframework.tools.dccext.Dccext;
-import org.huahinframework.tools.dcut.Dcut;
-import org.huahinframework.tools.durldec.Durldec;
-import org.huahinframework.tools.durlsw.Durlsw;
-import org.huahinframework.tools.dwc.Dwc;
+import org.huahinframework.tools.ccext.Ccext;
+import org.huahinframework.tools.cut.Cut;
 import org.huahinframework.tools.formatting.Formatting;
+import org.huahinframework.tools.urldec.Urldec;
+import org.huahinframework.tools.urlsw.Urlsw;
+import org.huahinframework.tools.wc.Wc;
 
 /**
  *
  */
 public class Tools {
     public static final String APACHE_FORMATTING = "formatting";
-    public static final String DWC = "dwc";
-    public static final String DCCEXT = "dccext";
-    public static final String DURLSW = "durlsw";
-    public static final String DCUT = "dcut";
-    public static final String DURLDEC = "durldec";
+    public static final String WC = "wc";
+    public static final String CCEXT = "ccext";
+    public static final String URLSW = "urlsw";
+    public static final String CUT = "cut";
+    public static final String URLDEC = "urldec";
 
     /**
      * @param args
@@ -46,11 +46,11 @@ public class Tools {
             throws ParseException {
         Runner runner = new Runner();
         runner.addJob(APACHE_FORMATTING, Formatting.class);
-        runner.addJob(DWC, Dwc.class);
-        runner.addJob(DCCEXT, Dccext.class);
-        runner.addJob(DURLSW, Durlsw.class);
-        runner.addJob(DCUT, Dcut.class);
-        runner.addJob(DURLDEC, Durldec.class);
+        runner.addJob(WC, Wc.class);
+        runner.addJob(CCEXT, Ccext.class);
+        runner.addJob(URLSW, Urlsw.class);
+        runner.addJob(CUT, Cut.class);
+        runner.addJob(URLDEC, Urldec.class);
 
         if (args.length < 3) {
             System.err.println("[jobName] args...");

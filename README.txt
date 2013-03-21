@@ -63,8 +63,8 @@ Tools
        -e 0,3,5 \
        -n 11
 
-* dwc
-    dwc is the wc command of Linux.
+* wc
+    wc is the wc command of Linux.
 
   arguments
     required
@@ -79,13 +79,13 @@ Tools
   For example:
 
     $ ./bin/huahin-tools -l -t 4 -s 2147483648 \
-       -j dwc \
+       -j wc \
        -i /tmp/input/ \
        -o /tmp/output/ \
        -l
 
-* dcut
-    dcut is th cut command of Linux.
+* cut
+    cut is th cut command of Linux.
 
   arguments
     required
@@ -99,13 +99,13 @@ Tools
   For example:
 
     $ ./bin/huahin-tools -l -t 4 -s 2147483648 \
-       -j dcut \
+       -j cut \
        -i /tmp/input/ \
        -o /tmp/output/ \
        -f 3,4
 
-* dccext
-    dccext extracts the row number of the specified column.
+* ccext
+    ccext extracts the row number of the specified column.
 
   arguments
     required
@@ -120,14 +120,14 @@ Tools
   For example:
 
     $ ./bin/huahin-tools -l -t 4 -s 2147483648 \
-       -j dccext \
+       -j ccext \
        -i /tmp/input/ \
        -o /tmp/output/ \
        -n 12 \
        -v
 
-* durldec
-    durldec is to URL decode the specified columns.
+* urldec
+    urldec is to URL decode the specified columns.
 
   arguments
     required
@@ -141,13 +141,13 @@ Tools
   For example:
 
     $ ./bin/huahin-tools -l -t 4 -s 2147483648 \
-       -j durldec \
+       -j urldec \
        -i /tmp/input/ \
        -o /tmp/output/ \
        -f 3,5
 
-* durldec
-    durldec extracts the URL keyword from the specified column.
+* urlsw
+    urlsw extracts the URL keyword from the specified column.
 
   arguments
     required
@@ -163,7 +163,7 @@ Tools
   For example:
 
     $ ./bin/huahin-tools -l -t 4 -s 2147483648 \
-       -j durldec \
+       -j urlsw \
        -i /tmp/input/ \
        -o /tmp/output/ \
        -f 3,5 \
