@@ -22,20 +22,11 @@ import java.io.IOException;
 import org.huahinframework.core.Filter;
 import org.huahinframework.core.io.Record;
 import org.huahinframework.core.writer.Writer;
-import org.huahinframework.tools.util.Outputter;
-import org.huahinframework.tools.wc.output.filter.AllOutputter;
-import org.huahinframework.tools.wc.output.filter.CharsLinesOutputter;
-import org.huahinframework.tools.wc.output.filter.CharsOutputter;
-import org.huahinframework.tools.wc.output.filter.LinesOutputter;
-import org.huahinframework.tools.wc.output.filter.WordsLinesOutputter;
-import org.huahinframework.tools.wc.output.filter.WordsOutputter;
 
 /**
  *
  */
 public class WcFilter extends Filter {
-    private Outputter outputter;
-
     /* (non-Javadoc)
      * @see org.huahinframework.core.Filter#init()
      */
@@ -49,7 +40,10 @@ public class WcFilter extends Filter {
     @Override
     public void filter(Record record, Writer writer)
             throws IOException, InterruptedException {
-        outputter.output(writer, record);
+        Record emitRecord = new Record();
+        emitRecord.addGrouping("FILE_NAME", record.getGroupingString("FILE_NAME"));
+        emitRecord.addValue("FILE_LENGTH", record.getGroupingLong("FILE_LENGTH"));
+        writer.write(emitRecord);
     }
 
     /* (non-Javadoc)
@@ -57,25 +51,5 @@ public class WcFilter extends Filter {
      */
     @Override
     public void filterSetup() {
-        boolean chars = getBooleanParameter(Wc.CHARS);
-        boolean words = getBooleanParameter(Wc.WORDS);
-        boolean lines = getBooleanParameter(Wc.LINES);
-        if (chars && words && lines) {
-            outputter = new AllOutputter();
-        } else if (!chars && !words && !lines) {
-            outputter = new AllOutputter();
-        } else if (chars && words) {
-            outputter = new AllOutputter();
-        } else if (chars && lines) {
-            outputter = new CharsLinesOutputter();
-        } else if (words && lines) {
-            outputter = new WordsLinesOutputter();
-        } else if (chars) {
-            outputter = new CharsOutputter();
-        } else if (words) {
-            outputter = new WordsOutputter();
-        } else if (lines) {
-            outputter = new LinesOutputter();
-        }
     }
 }

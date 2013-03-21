@@ -51,11 +51,16 @@ public class CcextFilter extends Filter {
      */
     @Override
     public void filterSetup() {
+        String separator = getStringParameter(Ccext.SEPARATOR);
+        if (separator == null) {
+            separator = "\t";
+        }
+
         int number = getIntParameter(Ccext.NUMBER);
         if (!getBooleanParameter(Ccext.REVERSE)) {
-            outputter = new NormalOutputter(number);
+            outputter = new NormalOutputter(separator, number);
         } else {
-            outputter = new ReverseOutputter(number);
+            outputter = new ReverseOutputter(separator, number);
         }
     }
 }

@@ -29,6 +29,7 @@ import org.huahinframework.tools.urlsw.Urlsw;
  */
 public class CutFilter extends Filter {
     private String[] fileds;
+    private String separator;
 
     /* (non-Javadoc)
      * @see org.huahinframework.core.Filter#init()
@@ -45,10 +46,13 @@ public class CutFilter extends Filter {
             throws IOException, InterruptedException {
         Record emitRecord = new Record();
         emitRecord.setValueNothing(true);
+
+        StringBuilder sb = new StringBuilder();
         for (String s : fileds) {
-            emitRecord.addGrouping(s, record.getValueString(s));
+            sb.append(record.getValueString(s)).append(separator);
         }
 
+        emitRecord.addGrouping("VALUE", sb.substring(0, sb.length() - separator.length()));
         writer.write(emitRecord);
     }
 
@@ -61,6 +65,11 @@ public class CutFilter extends Filter {
         fileds = new String[f.length];
         for (int i = 0; i < f.length; i++) {
             fileds[i] = String.valueOf(Integer.valueOf(f[i]) - 1);
+        }
+
+        separator = getStringParameter(Cut.SEPARATOR);
+        if (separator == null) {
+            separator = "\t";
         }
     }
 }

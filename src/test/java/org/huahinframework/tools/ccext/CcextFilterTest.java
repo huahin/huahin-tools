@@ -32,16 +32,14 @@ import org.junit.Test;
 /**
  *
  */
-public class DccextFilterTest extends FilterDriver {
+public class CcextFilterTest extends FilterDriver {
     @Test
     public void testNormalHit() throws IOException, URISyntaxException {
         String input = "a\tb\tc";
 
         List<Record> output = new ArrayList<Record>();
         Record r = new Record();
-        r.addGrouping("0", "a");
-        r.addGrouping("1", "b");
-        r.addGrouping("2", "c");
+        r.addGrouping("VALUE", "a\tb\tc");
         r.setValueNothing(true);
         output.add(r);
 
@@ -66,8 +64,7 @@ public class DccextFilterTest extends FilterDriver {
 
         List<Record> output = new ArrayList<Record>();
         Record r = new Record();
-        r.addGrouping("0", "a");
-        r.addGrouping("1", "b");
+        r.addGrouping("VALUE", "a\tb");
         r.setValueNothing(true);
         output.add(r);
 
@@ -85,6 +82,22 @@ public class DccextFilterTest extends FilterDriver {
         setParameter(Ccext.REVERSE, true);
 
         run("\t", input, null);
+    }
+
+    @Test
+    public void testCommaHit() throws IOException, URISyntaxException {
+        String input = "a,b,c";
+
+        List<Record> output = new ArrayList<Record>();
+        Record r = new Record();
+        r.addGrouping("VALUE", "a,b,c");
+        r.setValueNothing(true);
+        output.add(r);
+
+        setParameter(Ccext.NUMBER, 3);
+        setParameter(Ccext.SEPARATOR, ",");
+
+        run(",", input, output);
     }
 
     @Override

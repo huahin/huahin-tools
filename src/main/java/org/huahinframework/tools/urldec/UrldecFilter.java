@@ -24,6 +24,7 @@ import java.util.Map;
 import org.huahinframework.core.Filter;
 import org.huahinframework.core.io.Record;
 import org.huahinframework.core.writer.Writer;
+import org.huahinframework.tools.cut.Cut;
 import org.huahinframework.tools.urlsw.Urlsw;
 import org.huahinframework.tools.util.Decoder;
 
@@ -32,6 +33,7 @@ import org.huahinframework.tools.util.Decoder;
  */
 public class UrldecFilter extends Filter {
     private Map<String, Boolean> filedsMap = new HashMap<String, Boolean>();
+    private String separator;
 
     /* (non-Javadoc)
      * @see org.huahinframework.core.Filter#init()
@@ -48,16 +50,19 @@ public class UrldecFilter extends Filter {
             throws IOException, InterruptedException {
         Record emitRecord = new Record();
         emitRecord.setValueNothing(true);
+
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < record.sizeValue(); i++) {
             String label = String.valueOf(i);
             String value = record.getValueString(label);
             if (filedsMap.get(label) != null) {
-                emitRecord.addGrouping(label, Decoder.urlDecoder(value));
+                sb.append(Decoder.urlDecoder(value)).append(separator);
             } else {
-                emitRecord.addGrouping(label, value);
+                sb.append(value).append(separator);
             }
         }
 
+        emitRecord.addGrouping("VALUE", sb.substring(0, sb.length() - separator.length()));
         writer.write(emitRecord);
     }
 
@@ -70,6 +75,11 @@ public class UrldecFilter extends Filter {
         for (String s : f) {
             int i = Integer.valueOf(s);
             filedsMap.put(String.valueOf(--i), true);
+        }
+
+        separator = getStringParameter(Cut.SEPARATOR);
+        if (separator == null) {
+            separator = "\t";
         }
     }
 }

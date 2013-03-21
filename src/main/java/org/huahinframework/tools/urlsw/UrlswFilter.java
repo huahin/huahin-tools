@@ -27,6 +27,7 @@ import org.huahinframework.core.Filter;
 import org.huahinframework.core.io.Record;
 import org.huahinframework.core.util.StringUtil;
 import org.huahinframework.core.writer.Writer;
+import org.huahinframework.tools.cut.Cut;
 import org.huahinframework.tools.util.ParseResult;
 import org.huahinframework.tools.util.SearchEngine;
 import org.huahinframework.tools.util.WordUtils;
@@ -37,6 +38,7 @@ import org.huahinframework.tools.util.WordUtils;
 public class UrlswFilter extends Filter {
     private String[] fileds;
     private Map<String, List<SearchEngine>> searchEngineQueryMap = new HashMap<String, List<SearchEngine>>();
+    private String separator;
 
     /* (non-Javadoc)
      * @see org.huahinframework.core.Filter#init()
@@ -68,14 +70,17 @@ public class UrlswFilter extends Filter {
 
         Record emitRecord = new Record();
         emitRecord.setValueNothing(true);
+
         int i;
+        StringBuilder sb = new StringBuilder();
         for (i = 0; i < record.sizeValue(); i++) {
-            emitRecord.addGrouping(String.valueOf(i), record.getValueString(String.valueOf(i)));
+            sb.append(record.getValueString(String.valueOf(i))).append(separator);
         }
         for (int j = 0; j < l.size(); j++) {
-            emitRecord.addGrouping(String.valueOf(++i), l.get(j));
+            sb.append(l.get(j)).append(StringUtil.TAB);
         }
 
+        emitRecord.addGrouping("VALUE", sb.substring(0, sb.length() - separator.length()));
         writer.write(emitRecord);
     }
 
@@ -99,6 +104,11 @@ public class UrlswFilter extends Filter {
                 searchEngineQueryMap.put(line[0], l);
             }
             searchEngineQueryMap.get(line[0]).add(new SearchEngine(line[1], line[2]));
+        }
+
+        separator = getStringParameter(Cut.SEPARATOR);
+        if (separator == null) {
+            separator = "\t";
         }
     }
 }

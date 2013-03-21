@@ -25,14 +25,13 @@ import java.util.List;
 import org.huahinframework.core.Filter;
 import org.huahinframework.core.io.Record;
 import org.huahinframework.tools.cut.CutFilter;
-import org.huahinframework.tools.urlsw.Urlsw;
 import org.huahinframework.unit.FilterDriver;
 import org.junit.Test;
 
 /**
  *
  */
-public class DcutFilterTest extends FilterDriver {
+public class CutFilterTest extends FilterDriver {
     @Test
     public void test1() throws IOException, URISyntaxException {
         String input = "a" + "\t" + "b" + "\t" + "c";
@@ -44,7 +43,7 @@ public class DcutFilterTest extends FilterDriver {
         output.add(r);
 
         String[] fileds = new String[] { "1" };
-        setParameter(Urlsw.FIELDS, fileds);
+        setParameter(Cut.FIELDS, fileds);
 
         run("\t", input, output);
     }
@@ -55,13 +54,12 @@ public class DcutFilterTest extends FilterDriver {
 
         List<Record> output = new ArrayList<Record>();
         Record r = new Record();
-        r.addGrouping("0", "a");
-        r.addGrouping("1", "b");
+        r.addGrouping("VALUE", "a\tb");
         r.setValueNothing(true);
         output.add(r);
 
         String[] fileds = new String[] { "1", "2" };
-        setParameter(Urlsw.FIELDS, fileds);
+        setParameter(Cut.FIELDS, fileds);
 
         run("\t", input, output);
     }
@@ -72,15 +70,31 @@ public class DcutFilterTest extends FilterDriver {
 
         List<Record> output = new ArrayList<Record>();
         Record r = new Record();
-        r.addGrouping("0", "a");
-        r.addGrouping("2", "c");
+        r.addGrouping("VALUE", "a\tc");
         r.setValueNothing(true);
         output.add(r);
 
         String[] fileds = new String[] { "1", "3" };
-        setParameter(Urlsw.FIELDS, fileds);
+        setParameter(Cut.FIELDS, fileds);
 
         run("\t", input, output);
+    }
+
+    @Test
+    public void test4() throws IOException, URISyntaxException {
+        String input = "a,b,c";
+
+        List<Record> output = new ArrayList<Record>();
+        Record r = new Record();
+        r.addGrouping("VALUE", "a,c");
+        r.setValueNothing(true);
+        output.add(r);
+
+        String[] fileds = new String[] { "1", "3" };
+        setParameter(Cut.FIELDS, fileds);
+        setParameter(Cut.SEPARATOR, ",");
+
+        run(",", input, output);
     }
 
     @Override

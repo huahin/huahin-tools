@@ -15,17 +15,41 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.huahinframework.tools.wc.output.summarizer;
+package org.huahinframework.tools.wc;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.List;
 
+import org.huahinframework.core.Filter;
 import org.huahinframework.core.io.Record;
-import org.huahinframework.core.writer.Writer;
+import org.huahinframework.tools.wc.WcFilter;
+import org.huahinframework.unit.FilterDriver;
+import org.junit.Test;
 
 /**
  *
  */
-public interface Outputter {
-    public void summarize(Record record);
-    public void output(Writer writer) throws IOException, InterruptedException;
+public class WcFilerTest extends FilterDriver {
+    private static final String INPUT = "This is a pen";
+
+    @Test
+    public void test() throws IOException, URISyntaxException {
+        List<Record> output = new ArrayList<Record>();
+        Record record = new Record();
+        record.addGrouping("FILE_NAME", "text.txt");
+        record.addValue("FILE_LENGTH", 13);
+        output.add(record);
+
+        setFileName("text.txt");
+        setFileLength(13);
+
+        run("", INPUT, output);
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new WcFilter();
+    }
 }

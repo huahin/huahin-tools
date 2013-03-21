@@ -31,6 +31,7 @@ import org.huahinframework.tools.util.ToolsTool;
 public class Ccext extends ToolsTool {
     public static final String NUMBER = "NUMBER";
     public static final String REVERSE = "REVERSE";
+    public static final String SEPARATOR = "SEPARATOR";
 
     private CcextToolsOptionUtil tot;
 
@@ -38,7 +39,10 @@ public class Ccext extends ToolsTool {
     protected void setup() throws Exception {
         String separator = "\t";
         if (tot.isDelimiter()) {
-            separator = tot.getDelimiter();
+            if (!tot.getDelimiter().equals("\\t")) {
+                separator = tot.getDelimiter();
+                conf.set(SEPARATOR, separator);
+            }
         }
 
         SimpleJob job = addJob(separator);

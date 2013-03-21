@@ -32,7 +32,7 @@ import org.junit.Test;
 /**
  *
  */
-public class DurldecTest extends FilterDriver {
+public class UrldecTest extends FilterDriver {
     private String[] fileds;
 
     @Test
@@ -43,9 +43,9 @@ public class DurldecTest extends FilterDriver {
 
         List<Record> output = new ArrayList<Record>();
         Record r = new Record();
-        r.addGrouping("0", "a");
-        r.addGrouping("1", "https://www.google.co.jp/search?num=100&hl=ja&safe=off&site=&source=hp&q=チョコレート&oq=チョコレート&gs_l=hp.12..0l10.926.926.0.2909.1.1.0.0.0.0.59.59.1.1.0...0.0...1c.2.5.hp.YQuUODoYa2U");
-        r.addGrouping("2", "b");
+        r.addGrouping("VALUE", "a" + "\t" +
+                               "https://www.google.co.jp/search?num=100&hl=ja&safe=off&site=&source=hp&q=チョコレート&oq=チョコレート&gs_l=hp.12..0l10.926.926.0.2909.1.1.0.0.0.0.59.59.1.1.0...0.0...1c.2.5.hp.YQuUODoYa2U" + "\t" +
+                               "b");
         r.setValueNothing(true);
         output.add(r);
 
@@ -63,9 +63,9 @@ public class DurldecTest extends FilterDriver {
 
         List<Record> output = new ArrayList<Record>();
         Record r = new Record();
-        r.addGrouping("0", "a");
-        r.addGrouping("1", "https://www.google.co.jp/search?num=100&hl=ja&safe=off&q=チョコレート 工場&oq=チョコレート 工場&gs_l=serp.3..0l7.1504.4108.0.4861.8.8.0.0.0.2.116.587.7j1.8.0...0.0...1c.1j4.5.serp._uW1AGGspZE");
-        r.addGrouping("2", "b");
+        r.addGrouping("VALUE", "a" + "\t" +
+                               "https://www.google.co.jp/search?num=100&hl=ja&safe=off&q=チョコレート 工場&oq=チョコレート 工場&gs_l=serp.3..0l7.1504.4108.0.4861.8.8.0.0.0.2.116.587.7j1.8.0...0.0...1c.1j4.5.serp._uW1AGGspZE" + "\t" +
+                               "b");
         r.setValueNothing(true);
         output.add(r);
 
@@ -83,9 +83,9 @@ public class DurldecTest extends FilterDriver {
 
         List<Record> output = new ArrayList<Record>();
         Record r = new Record();
-        r.addGrouping("0", "a");
-        r.addGrouping("1", "b");
-        r.addGrouping("2", "https://www.google.co.jp/search?num=100&hl=ja&safe=off&q=チョコレート　工場&oq=チョコレート　工場&gs_l=serp.3..0l7.1235494.1236462.0.1237514.2.2.0.0.0.0.122.176.1j1.2.0...0.0...1c.1.5.serp.eozXYaPEcvY");
+        r.addGrouping("VALUE", "a" + "\t" +
+                               "b" + "\t" +
+                               "https://www.google.co.jp/search?num=100&hl=ja&safe=off&q=チョコレート　工場&oq=チョコレート　工場&gs_l=serp.3..0l7.1235494.1236462.0.1237514.2.2.0.0.0.0.122.176.1j1.2.0...0.0...1c.1.5.serp.eozXYaPEcvY");
         r.setValueNothing(true);
         output.add(r);
 
@@ -93,6 +93,27 @@ public class DurldecTest extends FilterDriver {
         setParameter(Urldec.FIELDS, fileds);
 
         run("\t", input, output);
+    }
+
+    @Test
+    public void testCommaNormal() throws IOException, URISyntaxException {
+        String input = "a" + "," +
+                       "https://www.google.co.jp/search?num=100&hl=ja&safe=off&site=&source=hp&q=%E3%83%81%E3%83%A7%E3%82%B3%E3%83%AC%E3%83%BC%E3%83%88&oq=%E3%83%81%E3%83%A7%E3%82%B3%E3%83%AC%E3%83%BC%E3%83%88&gs_l=hp.12..0l10.926.926.0.2909.1.1.0.0.0.0.59.59.1.1.0...0.0...1c.2.5.hp.YQuUODoYa2U" + "," +
+                       "b";
+
+        List<Record> output = new ArrayList<Record>();
+        Record r = new Record();
+        r.addGrouping("VALUE", "a" + "," +
+                               "https://www.google.co.jp/search?num=100&hl=ja&safe=off&site=&source=hp&q=チョコレート&oq=チョコレート&gs_l=hp.12..0l10.926.926.0.2909.1.1.0.0.0.0.59.59.1.1.0...0.0...1c.2.5.hp.YQuUODoYa2U" + "," +
+                               "b");
+        r.setValueNothing(true);
+        output.add(r);
+
+        fileds = new String[] { "2" };
+        setParameter(Urldec.FIELDS, fileds);
+        setParameter(Urldec.SEPARATOR, ",");
+
+        run(",", input, output);
     }
 
     @Override

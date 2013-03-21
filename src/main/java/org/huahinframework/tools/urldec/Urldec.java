@@ -31,6 +31,7 @@ import org.huahinframework.tools.util.ToolsTool;
  */
 public class Urldec extends ToolsTool {
     public static final String FIELDS = "FIELDS";
+    public static final String SEPARATOR = "SEPARATOR";
 
     private UrldecToolsOptionUtil tot;
 
@@ -41,7 +42,10 @@ public class Urldec extends ToolsTool {
     protected void setup() throws Exception {
         String separator = "\t";
         if (tot.isDelimiter()) {
-            separator = tot.getDelimiter();
+            if (!tot.getDelimiter().equals("\\t")) {
+                separator = tot.getDelimiter();
+                conf.set(SEPARATOR, separator);
+            }
         }
 
         SimpleJob job = addJob(separator);

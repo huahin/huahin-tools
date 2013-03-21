@@ -64,25 +64,19 @@ Tools
        -n 11
 
 * wc
-    wc is the wc command of Linux.
+    wc is the wc command of Linux(-l option only).
 
   arguments
     required
       -i data input path.
       -o data output path.
 
-    option
-      -c charctors.
-      -w words.
-      -l lines.
-
   For example:
 
     $ ./bin/huahin-tools -l -t 4 -s 2147483648 \
        -j wc \
        -i /tmp/input/ \
-       -o /tmp/output/ \
-       -l
+       -o /tmp/output/
 
 * cut
     cut is th cut command of Linux.

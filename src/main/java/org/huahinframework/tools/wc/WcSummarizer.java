@@ -22,21 +22,11 @@ import java.io.IOException;
 import org.huahinframework.core.Summarizer;
 import org.huahinframework.core.io.Record;
 import org.huahinframework.core.writer.Writer;
-import org.huahinframework.tools.wc.output.summarizer.AllOutputter;
-import org.huahinframework.tools.wc.output.summarizer.CharsLinesOutputter;
-import org.huahinframework.tools.wc.output.summarizer.CharsOutputter;
-import org.huahinframework.tools.wc.output.summarizer.CharsWordsOutputter;
-import org.huahinframework.tools.wc.output.summarizer.LinesOutputter;
-import org.huahinframework.tools.wc.output.summarizer.Outputter;
-import org.huahinframework.tools.wc.output.summarizer.WordsLinesOutputter;
-import org.huahinframework.tools.wc.output.summarizer.WordsOutputter;
 
 /**
  *
  */
 public class WcSummarizer extends Summarizer {
-    private Outputter outputter;
-
     /* (non-Javadoc)
      * @see org.huahinframework.core.Summarizer#init()
      */
@@ -50,11 +40,17 @@ public class WcSummarizer extends Summarizer {
     @Override
     public void summarize(Writer writer)
             throws IOException, InterruptedException {
+        long lines = 0;
         while(hasNext()) {
-            Record r = next(writer);
-            outputter.summarize(r);
+            next(writer);
+            lines++;
         }
-        outputter.output(writer);
+
+        Record r = new Record();
+        r.addGrouping("LINES", lines);
+        r.addGrouping("FILE_NAME", getGroupingRecord().getGroupingString("FILE_NAME"));
+        r.setValueNothing(true);
+        writer.write(r);
     }
 
     /* (non-Javadoc)
@@ -62,25 +58,5 @@ public class WcSummarizer extends Summarizer {
      */
     @Override
     public void summarizerSetup() {
-        boolean chars = getBooleanParameter(Wc.CHARS);
-        boolean words = getBooleanParameter(Wc.WORDS);
-        boolean lines = getBooleanParameter(Wc.LINES);
-        if (chars && words && lines) {
-            outputter = new AllOutputter();
-        } else if (!chars && !words && !lines) {
-            outputter = new AllOutputter();
-        } else if (chars && words) {
-            outputter = new CharsWordsOutputter();
-        } else if (chars && lines) {
-            outputter = new CharsLinesOutputter();
-        } else if (words && lines) {
-            outputter = new WordsLinesOutputter();
-        } else if (chars) {
-            outputter = new CharsOutputter();
-        } else if (words) {
-            outputter = new WordsOutputter();
-        } else if (lines) {
-            outputter = new LinesOutputter();
-        }
     }
 }

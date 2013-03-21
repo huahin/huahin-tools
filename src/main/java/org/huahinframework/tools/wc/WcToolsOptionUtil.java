@@ -33,29 +33,10 @@ public class WcToolsOptionUtil extends ToolsOptionUtil {
         super(args);
     }
 
-    public static final String CHARS = "c";
-    public static final String WORDS = "w";
-    public static final String LINES = "l";
-
     /* (non-Javadoc)
      * @see org.huahinframework.tools.util.ToolsOptionUtil#setMoreArgs(org.apache.commons.cli.Options)
      */
     @Override
     protected void setMoreArgs(Options options) {
-        options.addOption(CHARS, false, "chars");
-        options.addOption(WORDS, false, "words");
-        options.addOption(LINES, false, "lines");
-    }
-
-    public boolean isChars() {
-        return cli.hasOption(CHARS);
-    }
-
-    public boolean isLines() {
-        return cli.hasOption(LINES);
-    }
-
-    public boolean isWords() {
-        return cli.hasOption(WORDS);
     }
 }

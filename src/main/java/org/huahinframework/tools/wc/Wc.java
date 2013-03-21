@@ -29,10 +29,6 @@ import org.huahinframework.tools.util.ToolsTool;
  *
  */
 public class Wc extends ToolsTool {
-    public static final String CHARS = "CHARS";
-    public static final String WORDS = "WORDS";
-    public static final String LINES = "LINES";
-
     private WcToolsOptionUtil tot;
 
     @Override
@@ -50,18 +46,6 @@ public class Wc extends ToolsTool {
 
             SimpleTextInputFormat.setMinInputSplitSize(job, opt.getSplitSize());
             SimpleTextInputFormat.setMaxInputSplitSize(job, opt.getSplitSize());
-        }
-
-        if (tot.isChars()) {
-            job.setParameter(CHARS, true);
-        }
-
-        if (tot.isWords()) {
-            job.setParameter(WORDS, true);
-        }
-
-        if (tot.isLines()) {
-            job.setParameter(LINES, true);
         }
     }
 

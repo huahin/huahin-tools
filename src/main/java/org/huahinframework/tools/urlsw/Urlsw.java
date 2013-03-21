@@ -37,6 +37,7 @@ import org.huahinframework.tools.util.ToolsTool;
 public class Urlsw extends ToolsTool {
     public static final String FIELDS = "FIELDS";
     public static final String MASTER = "MASTER";
+    public static final String SEPARATOR = "SEPARATOR";
 
     private UrlswToolsOptionUtil tot;
 
@@ -47,7 +48,10 @@ public class Urlsw extends ToolsTool {
     protected void setup() throws Exception {
         String separator = "\t";
         if (tot.isDelimiter()) {
-            separator = tot.getDelimiter();
+            if (!tot.getDelimiter().equals("\\t")) {
+                separator = tot.getDelimiter();
+                conf.set(SEPARATOR, separator);
+            }
         }
 
         SimpleJob job = addJob(separator);

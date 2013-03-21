@@ -27,10 +27,12 @@ import org.huahinframework.tools.util.Outputter;
  *
  */
 public class ReverseOutputter implements Outputter {
+    private String separator;
     private int number;
 
-    public ReverseOutputter(int number) {
+    public ReverseOutputter(String separator, int number) {
         this.number = number;
+        this.separator = separator;
     }
 
     /* (non-Javadoc)
@@ -44,15 +46,19 @@ public class ReverseOutputter implements Outputter {
         }
 
         Record emitRecord = new Record();
+        emitRecord.setValueNothing(true);
+
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < record.sizeValue(); i++) {
             String s = null;
             try {
                 s = record.getValueString(String.valueOf(i));
             } catch (ClassCastException e) {
             }
-            emitRecord.addGrouping(String.valueOf(i), s);
+            sb.append(s).append(separator);
         }
-        emitRecord.setValueNothing(true);
+
+        emitRecord.addGrouping("VALUE", sb.substring(0, sb.length() - separator.length()));
         writer.write(emitRecord);
     }
 }
