@@ -38,7 +38,7 @@ Huahin Tools is distributed under Apache License 2.0. <br></p>
 
 <h2>Download</h2>
 
-<p><a href="http://huahin-framework.googlecode.com/files/huahin-tools-0.1.0.tar.gz">Huahin Tools 0.1.0</a></p>
+<p><a href="http://huahin-framework.googlecode.com/files/huahin-tools-0.1.1.tar.gz">Huahin Tools 0.1.1</a></p>
 
 <h2>Requirements</h2>
 
@@ -97,6 +97,128 @@ Huahin Tools is distributed under Apache License 2.0. <br></p>
        -o /tmp/output/ \
        -e 0,3,5 \
        -n 11
+</code></pre>
+
+<p><br></p>
+
+<h3>wc</h3>
+
+<p><br>
+    wc is the wc command of Linux(-l option only).</p>
+
+<pre><code>    required arguments
+    -i data input path.
+    -o data output path.
+</code></pre>
+
+<p><br>
+  For example: <br><br></p>
+
+<pre><code>    $ ./bin/huahin-tools -l -t 4 -s 2147483648 \
+       -j wc \
+       -i /tmp/input/ \
+       -o /tmp/output/
+</code></pre>
+
+<p><br></p>
+
+<h3>cut</h3>
+
+<p><br>
+    cut is th cut command of Linux.</p>
+
+<pre><code>    required arguments
+    -i data input path.
+    -o data output path.
+</code></pre>
+
+<p><br>
+    option arguments <br>
+    -f specified column. 1 or 1,2 or 1-4.<br>
+    -d delimiter. Default TAB.<br><br>
+  For example: <br><br></p>
+
+<pre><code>    $ ./bin/huahin-tools -l -t 4 -s 2147483648 \
+       -j cut \
+       -i /tmp/input/ \
+       -o /tmp/output/ \
+       -f 3,4
+</code></pre>
+
+<p><br></p>
+
+<h3>ccext</h3>
+
+<p><br>
+    ccext extracts the row number of the specified column.</p>
+
+<pre><code>    required arguments
+    -i data input path.
+    -o data output path.
+</code></pre>
+
+<p><br>
+    option arguments <br>
+    -n Number of the specified column.<br>
+    -v reverse of -n.<br>
+    -d delimiter. Default TAB.<br><br>
+  For example: <br><br></p>
+
+<pre><code>    $ ./bin/huahin-tools -l -t 4 -s 2147483648 \
+       -j ccext \
+       -i /tmp/input/ \
+       -o /tmp/output/ \
+       -n 12 \
+       -v
+</code></pre>
+
+<h3>urldec</h3>
+
+<p><br>
+    urldec is to URL decode the specified columns.</p>
+
+<pre><code>    required arguments
+    -i data input path.
+    -o data output path.
+</code></pre>
+
+<p><br>
+    option arguments <br>
+    -f decode the specified columns. 1 or 1,2 or 1-4.<br>
+    -d delimiter. Default TAB.<br><br>
+  For example: <br><br></p>
+
+<pre><code>    $ ./bin/huahin-tools -l -t 4 -s 2147483648 \
+       -j urldec \
+       -i /tmp/input/ \
+       -o /tmp/output/ \
+       -f 3,5
+</code></pre>
+
+<h3>urlsw</h3>
+
+<p><br>
+    urlsw extracts the URL keyword from the specified column.</p>
+
+<pre><code>    required arguments
+    -i data input path.
+    -o data output path.
+</code></pre>
+
+<p><br>
+    option arguments <br>
+    -f decode the specified columns. 1 or 1,2 or 1-4.<br>
+    -m master file path. huahin-tools comes with master/SearchEngine.tsv.<br>
+       format is TSV(search engine host/search engine path/search engine query name).<br>
+    -d delimiter. Default TAB.<br><br>
+  For example: <br><br></p>
+
+<pre><code>    $ ./bin/huahin-tools -l -t 4 -s 2147483648 \
+       -j urlsw \
+       -i /tmp/input/ \
+       -o /tmp/output/ \
+       -f 3,5 \
+       -m master/SearchEngine.tsv
 </code></pre>
       </section>
     </div>
