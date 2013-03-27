@@ -19,8 +19,10 @@ Install Huahin Tools
 
 -----------------------------------------------------------------------------
 Amzon Elastic MapReduce
-  jar fila path
-    s3://huahin/tools/huahin-tools-x.x.x.jar
+  upload jar fila to S3: huahin-tools.jar
+
+  Set Jar path examples:
+    s3://huahin/tools/huahin-tools.jar
 
 -----------------------------------------------------------------------------
 Run Huahin Tools
